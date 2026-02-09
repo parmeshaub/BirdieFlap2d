@@ -6,7 +6,7 @@ public class BirdieController : MonoBehaviour
     private InputManager inputManager;
     private Rigidbody2D rb;
 
-    public event Action OnPlayerDeath;
+    public event Action OnPlayerDeath; //Todo
 
     [SerializeField] private float jumpForce;
 
