@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 8b4c1a5231a6d7342a18265dc7eb7c48
+  productGUID: 1b43143b00e93ba46aadacdaf35bb404
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Birdie Flap
+  productName: BirdieFlap
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -601,14 +601,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Birdie Flap
+  metroPackageName: BirdieFlap
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Birdie Flap
+  metroApplicationDescription: BirdieFlap
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -677,12 +677,12 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 0
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: fe60b9dd-3184-48d2-9dda-07f457ccbf51
+  cloudProjectId: 28fc9bfb-8a12-4769-89f2-168bf17e59d0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Birdie Flap
+  projectName: BirdieFlap
   organizationId: sear_z
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
