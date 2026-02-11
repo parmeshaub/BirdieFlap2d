@@ -4,6 +4,10 @@ using UnityEngine;
 public class BirdieController : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private float tiltSpeed = 5;
+
+    [SerializeField] private float tiltPosThreshold;
+    [SerializeField] private float tiltNegThreshold;
 
     private bool isPlayerDead = false;
 
@@ -32,6 +36,20 @@ public class BirdieController : MonoBehaviour
     private void Start()
     {
         GameInitialization();
+    }
+
+    private void FixedUpdate() {
+        TiltBirdOnVelocity();
+    }
+
+    private void TiltBirdOnVelocity() {
+        float targetZ = 0;
+
+        if (rb.linearVelocity.y >= tiltPosThreshold) targetZ = 50f;
+        else if (rb.linearVelocity.y <= tiltNegThreshold) targetZ = -90f;
+
+        Quaternion targetRotation = Quaternion.Euler(0, 0, targetZ);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * tiltSpeed);
     }
 
     private void Jump()
