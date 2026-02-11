@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,9 @@ public class InputManager : MonoBehaviour
         inputActions.Enable();
         inputActions.Birdie.Jump.performed += HandleJump;
         inputActions.MainMenu.Start.performed += StartSignal;
+        inputActions.Birdie.Exit.performed += QuitGame;
+        inputActions.MainMenu.Exit.performed += QuitGame;
+
 
         BirdieController.OnPlayerDeath += PlayerDeath;
     }
@@ -31,6 +35,9 @@ public class InputManager : MonoBehaviour
         inputActions.Disable();
         inputActions.Birdie.Jump.performed -= HandleJump;
         inputActions.MainMenu.Start.performed -= StartSignal;
+        inputActions.Birdie.Exit.performed -= QuitGame;
+        inputActions.MainMenu.Exit.performed -= QuitGame;
+
 
         BirdieController.OnPlayerDeath -= PlayerDeath;
     }
@@ -49,5 +56,9 @@ public class InputManager : MonoBehaviour
             isGameRunning = true;
             OnStartPressed?.Invoke();
         }
+    }
+
+    private void QuitGame(InputAction.CallbackContext context) {
+        Application.Quit();
     }
 }
