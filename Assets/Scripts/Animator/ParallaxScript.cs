@@ -26,12 +26,15 @@ public class ParallaxScript : MonoBehaviour {
         length = GetComponentInChildren<SpriteRenderer>().bounds.size.x;
     }
 
-    private void FixedUpdate() {
+    private void Update() {
         if (!shouldScroll) return;
 
-        autoScrollOffset += (scrollSpeed * parallaxEffect) * Time.fixedDeltaTime;
-        float distance = autoScrollOffset % length;
-        transform.position = new Vector3(startPos - distance, transform.position.y, transform.position.z);
+        float distance = (scrollSpeed * parallaxEffect) * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x - distance, transform.position.y, transform.position.z);
+
+        if (transform.position.x < startPos - length) {
+            transform.position = new Vector3(transform.position.x + length, transform.position.y, transform.position.z);
+        }
     }
 
     private void StartParallax() => shouldScroll = true;
