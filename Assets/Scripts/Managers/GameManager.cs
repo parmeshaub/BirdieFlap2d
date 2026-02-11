@@ -1,16 +1,18 @@
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    public static event Action OnGameStart;
+
+    private void OnEnable() {
+        InputManager.OnStartPressed += GameStart;
+    }
+    private void OnDisable() {
+        InputManager.OnStartPressed -= GameStart;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void GameStart() {
+        OnGameStart?.Invoke();
     }
 }

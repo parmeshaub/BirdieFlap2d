@@ -9,11 +9,12 @@ public class PipeScript : MonoBehaviour
 
     private void OnEnable() {
         BirdieController.OnPlayerDeath += PlayerDeath;
+        GameManager.OnGameStart += StartGame;
     }
 
     private void OnDisable() {
         BirdieController.OnPlayerDeath -= PlayerDeath;
-
+        GameManager.OnGameStart -= StartGame;
     }
 
     private void Update() {
@@ -43,7 +44,7 @@ public class PipeScript : MonoBehaviour
         isPlayerDead = true;
     }
 
-    private void GameStart() {
+    private void StartGame() {
         isPlayerDead = false;
         Destroy(this.gameObject);
     }

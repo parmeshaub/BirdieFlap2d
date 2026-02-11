@@ -13,14 +13,16 @@ public class PipeSpawner : MonoBehaviour
 
     private void OnEnable() {
         BirdieController.OnPlayerDeath += PlayerDeath;
+        GameManager.OnGameStart += StartGame;
     }
 
     private void OnDisable() {
         BirdieController.OnPlayerDeath -= PlayerDeath;
+        GameManager.OnGameStart -= StartGame;
     }
 
     private void Start() {
-        StartCoroutine(SpawnPipe());
+
     }
 
     private float RandomizePipeYValue() {
@@ -43,6 +45,6 @@ public class PipeSpawner : MonoBehaviour
 
     private void PlayerDeath() {
         isPlayerDead = true;
-        StopCoroutine(SpawnPipe());
+        StopAllCoroutines();
     }
 }

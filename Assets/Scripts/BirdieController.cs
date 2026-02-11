@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class BirdieController : MonoBehaviour
 {
-    private InputManager inputManager;
     private Rigidbody2D rb;
 
     private bool isPlayerDead = false;
+
     public static event Action OnPlayerDeath;
     public static event Action OnJump;
 
@@ -14,17 +14,24 @@ public class BirdieController : MonoBehaviour
 
     private void OnEnable()
     {
-        inputManager.OnJumpPressed += Jump;
+        InputManager.OnJumpPressed += Jump;
+        GameManager.OnGameStart += StartGame;
+    }
+
+    private void OnDisable() {
+        InputManager.OnJumpPressed -= Jump;
+        GameManager.OnGameStart -= StartGame;
     }
 
     private void Awake()
     {
-        inputManager = InputManager.Instance;
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        GameInitialization();
     }
 
     private void Jump()
@@ -41,8 +48,16 @@ public class BirdieController : MonoBehaviour
         }
     }
 
-    private void GameOrRestartStart() {
+    private void GameInitialization() {
+        this.gameObject.transform.position = new Vector3(0, 0, 0);
         isPlayerDead = false;
+        rb.simulated = false;
+    }
+
+    private void StartGame() {
+        this.gameObject.transform.position = new Vector3(0, 0, 0);
+        isPlayerDead = false;
+        rb.simulated = true;
     }
 }
 

@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private InputSystem_Actions inputActions;
-    public event Action OnJumpPressed;
+    public static event Action OnJumpPressed;
+    public static event Action OnStartPressed;
     public static InputManager Instance { get; private set; }
+    private bool isGameRunning = false;
 
     private void Awake()
     {
@@ -19,6 +21,7 @@ public class InputManager : MonoBehaviour
     {
         inputActions.Enable();
         inputActions.Birdie.Jump.performed += HandleJump;
+        inputActions.MainMenu.Start.performed += StartSignal;
 
         BirdieController.OnPlayerDeath += PlayerDeath;
     }
@@ -27,6 +30,9 @@ public class InputManager : MonoBehaviour
     {
         inputActions.Disable();
         inputActions.Birdie.Jump.performed -= HandleJump;
+        inputActions.MainMenu.Start.performed -= StartSignal;
+
+        BirdieController.OnPlayerDeath -= PlayerDeath;
     }
 
     private void HandleJump(InputAction.CallbackContext context)
@@ -35,10 +41,13 @@ public class InputManager : MonoBehaviour
     }
 
     private void PlayerDeath() {
-        inputActions.Disable();
+        isGameRunning = false;
     }
 
-    private void StartGame() {
-        inputActions.Enable();
+    private void StartSignal(InputAction.CallbackContext context) {
+        if (!isGameRunning) {
+            isGameRunning = true;
+            OnStartPressed?.Invoke();
+        }
     }
 }

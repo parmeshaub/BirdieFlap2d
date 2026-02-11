@@ -8,15 +8,17 @@ public class PointManager : MonoBehaviour
 
     private void Start() {
         OnPointsChanged?.Invoke(score);
-
     }
 
     private void OnEnable() {
         PipeScript.OnScorePoint += AddPoint;
+        GameManager.OnGameStart += ResetOrStartGame;
     }
 
     private void OnDisable() {
         PipeScript.OnScorePoint -= AddPoint;
+        GameManager.OnGameStart -= ResetOrStartGame;
+
     }
 
     private void AddPoint() {

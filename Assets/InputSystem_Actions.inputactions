@@ -40,6 +40,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Main Menu",
+            "id": "a9ad9fbe-47b5-4282-9473-7627bfac5d73",
+            "actions": [
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "9400bb01-2567-47ef-b169-dde69c34cac6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ccaa6510-64aa-474f-aaf3-81c5489e1a5d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79d81ed0-2975-4c37-950e-93171ee927be",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
