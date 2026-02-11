@@ -9,6 +9,16 @@ public class PipeSpawner : MonoBehaviour
     [SerializeField] private float maxPipeHeight = 2.5f;
     [SerializeField] private float minPipeHeight = -1.25f;
 
+    private bool isPlayerDead = false;
+
+    private void OnEnable() {
+        BirdieController.OnPlayerDeath += PlayerDeath;
+    }
+
+    private void OnDisable() {
+        BirdieController.OnPlayerDeath -= PlayerDeath;
+    }
+
     private void Start() {
         StartCoroutine(SpawnPipe());
     }
@@ -20,8 +30,19 @@ public class PipeSpawner : MonoBehaviour
 
     private IEnumerator SpawnPipe() {
         yield return new WaitForSeconds(timeToSpawn);
+        if (isPlayerDead) yield break;
         Vector3 newPosition = new Vector3(this.transform.position.x, RandomizePipeYValue(), this.transform.position.z);
         Instantiate(pipePrefab,newPosition, this.transform.localRotation, this.transform);
         StartCoroutine(SpawnPipe());
+    }
+
+    private void StartGame() {
+        isPlayerDead = false;
+        StartCoroutine(SpawnPipe());
+    }
+
+    private void PlayerDeath() {
+        isPlayerDead = true;
+        StopCoroutine(SpawnPipe());
     }
 }

@@ -6,7 +6,9 @@ public class BirdieController : MonoBehaviour
     private InputManager inputManager;
     private Rigidbody2D rb;
 
-    public event Action OnPlayerDeath; //Todo
+    private bool isPlayerDead = false;
+    public static event Action OnPlayerDeath;
+    public static event Action OnJump;
 
     [SerializeField] private float jumpForce;
 
@@ -29,6 +31,18 @@ public class BirdieController : MonoBehaviour
     {
         rb.linearVelocityY = 0;
         rb.AddForceY(jumpForce);
+        OnJump?.Invoke();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (!isPlayerDead) {
+            OnPlayerDeath?.Invoke();
+            isPlayerDead = true;
+        }
+    }
+
+    private void GameOrRestartStart() {
+        isPlayerDead = false;
     }
 }
 

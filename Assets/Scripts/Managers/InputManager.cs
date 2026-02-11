@@ -19,6 +19,8 @@ public class InputManager : MonoBehaviour
     {
         inputActions.Enable();
         inputActions.Birdie.Jump.performed += HandleJump;
+
+        BirdieController.OnPlayerDeath += PlayerDeath;
     }
 
     private void OnDisable()
@@ -30,5 +32,13 @@ public class InputManager : MonoBehaviour
     private void HandleJump(InputAction.CallbackContext context)
     {
         OnJumpPressed?.Invoke();
+    }
+
+    private void PlayerDeath() {
+        inputActions.Disable();
+    }
+
+    private void StartGame() {
+        inputActions.Enable();
     }
 }
