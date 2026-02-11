@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI scoreTextGameOver;
+    [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject startUI;
@@ -37,15 +38,26 @@ public class UIManager : MonoBehaviour
         gameOverUI.SetActive(false);
     }
 
+    private int currentScore;
+
     private void InitializeGameOverUI() {
         startUI.SetActive(false);
         gameUI.SetActive(false);
         gameOverUI.SetActive(true);
 
         scoreTextGameOver.text = scoreText.text;
+        
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+        }
+        
+        highScoreText.text = highScore.ToString();
     }
 
     private void UpdatePoints(int score) {
+        currentScore = score;
         scoreText.text = score.ToString();
     }
 }

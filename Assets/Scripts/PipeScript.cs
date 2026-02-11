@@ -4,6 +4,9 @@ using System;
 public class PipeScript : MonoBehaviour
 {
     [SerializeField] private float pipeSpeed;
+    private static float currentPipeSpeed;
+    [SerializeField] private float pipeSpeedIncrement;
+
     private bool isPlayerDead = false;
     public static event Action OnScorePoint;
 
@@ -24,7 +27,8 @@ public class PipeScript : MonoBehaviour
     }
 
     private void MovePipe() {
-        Vector3 newPosition = new Vector3(this.transform.position.x - pipeSpeed * Time.deltaTime, this.transform.position.y, this.transform.position.z);
+        float newSpeed = this.transform.position.x - currentPipeSpeed * Time.deltaTime;
+        Vector3 newPosition = new Vector3(newSpeed, this.transform.position.y, this.transform.position.z);
         this.transform.position = newPosition;
     }
 
@@ -37,6 +41,7 @@ public class PipeScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
             OnScorePoint?.Invoke();
+            currentPipeSpeed += pipeSpeedIncrement;
         }
     }
 
@@ -44,7 +49,14 @@ public class PipeScript : MonoBehaviour
         isPlayerDead = true;
     }
 
+    public float PipeSpeed => pipeSpeed;
+
+    public static void ResetSpeed(float speed) {
+        currentPipeSpeed = speed;
+    }
+
     private void StartGame() {
+        // Cleaning up existing pipes on restart, speed is reset by spawner
         isPlayerDead = false;
         Destroy(this.gameObject);
     }

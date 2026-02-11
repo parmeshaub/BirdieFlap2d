@@ -5,6 +5,9 @@ public class PipeSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject pipePrefab;
     [SerializeField] private float timeToSpawn;
+    private float currentSpawnTime;
+    [SerializeField] private float spawnTimeDecrease = 0.05f;
+    [SerializeField] private float minSpawnTime = 0.5f;
 
     [SerializeField] private float maxPipeHeight = 2.5f;
     [SerializeField] private float minPipeHeight = -1.25f;
@@ -14,15 +17,13 @@ public class PipeSpawner : MonoBehaviour
     private void OnEnable() {
         BirdieController.OnPlayerDeath += PlayerDeath;
         GameManager.OnGameStart += StartGame;
+        PipeScript.OnScorePoint += DecreaseSpawnTime;
     }
 
     private void OnDisable() {
         BirdieController.OnPlayerDeath -= PlayerDeath;
         GameManager.OnGameStart -= StartGame;
-    }
-
-    private void Start() {
-
+        PipeScript.OnScorePoint -= DecreaseSpawnTime;
     }
 
     private float RandomizePipeYValue() {
@@ -34,13 +35,26 @@ public class PipeSpawner : MonoBehaviour
         if (isPlayerDead) yield break;
         Vector3 newPosition = new Vector3(this.transform.position.x, RandomizePipeYValue(), this.transform.position.z);
         Instantiate(pipePrefab, newPosition, this.transform.localRotation, this.transform);
-        yield return new WaitForSeconds(timeToSpawn);
+        yield return new WaitForSeconds(currentSpawnTime);
         StartCoroutine(SpawnPipe());
     }
 
     private void StartGame() {
         isPlayerDead = false;
+        currentSpawnTime = timeToSpawn;
+        
+        if(pipePrefab != null) {
+            var pipeScript = pipePrefab.GetComponent<PipeScript>();
+            if(pipeScript != null) {
+                PipeScript.ResetSpeed(pipeScript.PipeSpeed);
+            }
+        }
+        
         StartCoroutine(SpawnPipe());
+    }
+
+    private void DecreaseSpawnTime() {
+        currentSpawnTime = Mathf.Max(minSpawnTime, currentSpawnTime - spawnTimeDecrease);
     }
 
     private void PlayerDeath() {

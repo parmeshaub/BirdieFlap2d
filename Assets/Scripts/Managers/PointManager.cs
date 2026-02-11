@@ -13,6 +13,7 @@ public class PointManager : MonoBehaviour
     private void OnEnable() {
         PipeScript.OnScorePoint += AddPoint;
         GameManager.OnGameStart += ResetOrStartGame;
+        BirdieController.OnPlayerDeath += CheckAndSaveHighScore;
     }
 
     private void OnDisable() {
@@ -30,5 +31,11 @@ public class PointManager : MonoBehaviour
     private void ResetOrStartGame() {
         score = 0;
         OnPointsChanged?.Invoke(score);
+    }
+
+    private void CheckAndSaveHighScore() {
+        if(score > PlayerPrefs.GetInt("HighScore", 0)) {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
     }
 }

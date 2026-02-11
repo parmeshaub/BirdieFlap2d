@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipeScript
   pipeSpeed: 3.5
+  pipeSpeedIncrement: 0.1
 --- !u!61 &9018871371460098296
 BoxCollider2D:
   m_ObjectHideFlags: 0
