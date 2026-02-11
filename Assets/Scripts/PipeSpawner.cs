@@ -31,10 +31,10 @@ public class PipeSpawner : MonoBehaviour
     }
 
     private IEnumerator SpawnPipe() {
-        yield return new WaitForSeconds(timeToSpawn);
         if (isPlayerDead) yield break;
         Vector3 newPosition = new Vector3(this.transform.position.x, RandomizePipeYValue(), this.transform.position.z);
-        Instantiate(pipePrefab,newPosition, this.transform.localRotation, this.transform);
+        Instantiate(pipePrefab, newPosition, this.transform.localRotation, this.transform);
+        yield return new WaitForSeconds(timeToSpawn);
         StartCoroutine(SpawnPipe());
     }
 
